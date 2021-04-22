@@ -35,6 +35,7 @@ app.get('/',(req,res) =>{
     })
 
 });
+//xd
 app.get('/api/:uid',(req,res) =>{
     db.serialize(function ()  {
         db.get("SELECT * FROM customers where uid = (\"" + req.params.uid + "\")", function(err,row){
