@@ -5,13 +5,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var sqlite3_1 = __importDefault(require("sqlite3"));
+var path_1 = __importDefault(require("path"));
 var app = express_1.default();
 var port = 3000;
 var db = new sqlite3_1.default.Database(':memory:');
 db.serialize(function () {
     db.run("CREATE TABLE customers (uid INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT UNIQUE, phone TEXT, customer_number TEXT, street_address TEXT, zip TEXT, state TEXT, processID INTEGER)");
     /*
-        uid Int
+        uid Int aka customer ID
         name text
         email text
         phone text
@@ -26,12 +27,14 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({
     extended: true
 }));
+app.use(express_1.default.static(__dirname));
 // list out all the customers and their info
-app.get('/', function (req, res) {
+app.get('/api/all/', function (req, res) {
     db.all("SELECT rowid AS id, name FROM customers", function (err, rows) {
         res.json(rows);
     });
 });
+//xd
 app.get('/api/:uid', function (req, res) {
     db.serialize(function () {
         db.get("SELECT * FROM customers where uid = (\"" + req.params.uid + "\")", function (err, row) {
@@ -82,9 +85,6 @@ app.put('/api/:name', function (req, res) {
                 "data": req.body,
             });
         });
-        /* db.all("SELECT rowid AS id, info FROM sampleTable", function(err,rows){
-            res.json(rows)
-        }) */
     });
 });
 app.delete('/api/:name', function (req, res) {
@@ -100,10 +100,10 @@ app.delete('/api/:name', function (req, res) {
                 "data": req.params.name,
             });
         });
-        /* db.all("SELECT rowid AS id, info FROM sampleTable", function(err,rows){
-            res.json(rows)
-        }) */
     });
+});
+app.get('*', function (req, res) {
+    res.sendFile(path_1.default.join(__dirname + '/index.html'));
 });
 app.listen(port, function () {
     return console.log('listening on port 3000');

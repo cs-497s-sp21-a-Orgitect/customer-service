@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title> Main Page </title> 
+        <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+   <!--  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script> -->
+    
+    </head>
+    <body>
+        <div id="getbutton">
+            <label for="Name"> Name </label>
+            <input type="text" id="name" name="name" placeholder="type thing here">
+            <label for="replace"> Replace </label>
+            <input type="text" id="replace" name="replace" placeholder="type thing here">
+            <input type="button" value="GET" onclick="myData()" id="submit">
+            <input type="button" value="POST"  id="post">
+            <input type="button" value="PUT" id="put">
+            <input type="button" value="DELETE" id="delete" >
+            <input type="button" value="FULL TABLE" id="all" >
+        </div>
+        <div id="receipt">
+            <p> Added in this session</p>
+            <ul id="list">
+
+            </ul>
+        </div>
+        <div id= "database">
+            <p>Database items </p>
+            <ul id="dblist">
+                
+            </ul>
+        </div>
+
+
+
+
+
+        
+    
+    </body>
+    <script src="buttons.js"></script>
+</html>
