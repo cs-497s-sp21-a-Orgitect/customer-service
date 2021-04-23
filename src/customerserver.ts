@@ -30,6 +30,7 @@ app.use(express.urlencoded({
 
 app.use(express.static(__dirname));
 
+
 // list out all the customers and their info
 app.get('/api/all/',(req,res) =>{
     db.all("SELECT rowid AS id, name FROM customers", function(err,rows){
@@ -110,8 +111,9 @@ app.delete('/api/:name', (req,res)=>{
     })
 })
 app.get('*', function(req,res){
-  res.sendFile(path.join(__dirname+ '/index.html'))
-})
+    res.sendFile(path.join(__dirname+ '/index.html'))
+});
+
 app.listen(port, () =>{
    return console.log('listening on port 3000')
 });

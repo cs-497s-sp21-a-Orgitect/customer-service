@@ -11,13 +11,21 @@
     </head>
     <body>
         <div id="getbutton">
-            <label for="Name"> Name </label>
-            <input type="text" id="name" name="name" placeholder="type thing here">
-            <label for="replace"> Replace </label>
-            <input type="text" id="replace" name="replace" placeholder="type thing here">
+            <p>Sign up</p>
+            <div id="details" style="padding-bottom: 3px;">
+                <label for="Name"> Name </label>
+                <input type="text" id="name" name="name" placeholder="type thing here">
+                <br>
+                <label for="Email"> Email </label>
+                <input type="text" id="email" name="email" placeholder="type thing here">
+                <br>
+                <label for="phone"> Phone</label>
+                <input type="text" id="phone" name="phone" placeholder="type thing here">
+             </div>   
+            
             <input type="button" value="GET" onclick="myData()" id="submit">
             <input type="button" value="POST"  id="post">
-            <input type="button" value="PUT" id="put">
+            <!-- <input type="button" value="PUT" id="put"> -->
             <input type="button" value="DELETE" id="delete" >
             <input type="button" value="FULL TABLE" id="all" >
         </div>
@@ -34,6 +42,11 @@
             </ul>
         </div>
 
+        <div id="stage">
+            <p> Your Request is on: </p>
+
+            
+        </div>
 
 
 
