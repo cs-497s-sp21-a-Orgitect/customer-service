@@ -23,10 +23,10 @@
                 <input type="text" id="phone" name="phone" placeholder="type thing here">
              </div>   
             
-            <input type="button" value="GET" onclick="myData()" id="submit">
-            <input type="button" value="POST"  id="post">
+            <input type="button" value="Sign in" id="sign" onclick="httpReq(this.id)">
+            <input type="button" value="CONFIRM"  id="post"  onclick="httpReq(this.id)">
             <!-- <input type="button" value="PUT" id="put"> -->
-            <input type="button" value="DELETE" id="delete" >
+            <input type="button" value="DELETE" id="delete"  onclick="httpReq(this.id)">
             <input type="button" value="FULL TABLE" id="all" >
         </div>
         <div id="receipt">
@@ -40,6 +40,11 @@
             <ul id="dblist">
                 
             </ul>
+        </div>
+        <div id="stage-select" style="display: none;">
+            <select name="requests" id="stages">
+                <!-- option children are formed by running a get? -->
+            </select>
         </div>
 
         <div id="stage">

@@ -1,5 +1,54 @@
-/* const { data } = require("jquery") */
 
+
+//document.getElementById("sign").addEventListener("click", httpReq)
+function httpReq(id){
+    console.log(id)
+    let Url = 'http://localhost:3000/api/'
+    const Data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value
+    }
+    const otherParam ={
+        headers: {
+            "content-type":"application/json; charset=UTF-8"
+        },
+        method: "GET"
+    }
+    if(id != "sign"){
+        otherParam.body = JSON.stringify(Data)
+        if(id == "delete"){
+            otherParam.method = "DELETE"
+            
+        }else if(id == "post"){
+            otherParam.method = "POST"
+            
+        }
+    }
+    Url = Url + '' + Data.name
+    
+
+    var list = document.getElementById('list')
+    var li = document.createElement('li')
+
+    fetch(Url,otherParam)
+    .then(data =>  {return data.json()})
+    .then(text => {
+        li.appendChild(document.createTextNode(Data.name))
+        list.appendChild(li)
+        if(id == 'sign'){
+            let y = document.getElementById('stage-select')
+            y.display = 'block'
+        }else{
+            let y = document.getElementById('stage-select')
+            y.display = 'none'
+        }
+        console.log(text)
+    })
+    .catch(error => console.log(error))
+        
+    
+}
 
 function myData() {
     const Url = 'http://localhost:3000/api/' + document.getElementById("name").value
@@ -23,33 +72,8 @@ function myData() {
         list.appendChild(li)
     })
 }
-document.getElementById("post").addEventListener("click", postData)
-function postData() {
-    const Url = 'http://localhost:3000/post'
-    const Data = {
-        name: document.getElementById("name").value,
-        replace: document.getElementById("replace").value
-    }
-    console.log(Data)
-    const otherParam ={
-        headers: {
-            'Content-Type':'application/json'
-        },
-        body: JSON.stringify(Data),
-        method: "POST"
-    }
-    var list = document.getElementById('list')
-    var li = document.createElement('li')
-    fetch(Url,otherParam)
-    .then(data =>  {return data.json()})
-    .then(text => {
-        li.appendChild(document.createTextNode(Data.name))
-        list.appendChild(li)
-        console.log(text)
-    })
-    .catch(error => console.log(error))
-}
-document.getElementById("put").addEventListener("click", putData)
+
+/* document.getElementById("put").addEventListener("click", putData) */
 function putData() {
     const Url = 'http://localhost:3000/put'
     const Data = {
@@ -80,7 +104,7 @@ function putData() {
     })
     .catch(error => console.log(error))
 }
-document.getElementById("delete").addEventListener("click", deleteData)
+// document.getElementById("delete").addEventListener("click", deleteData)
 function deleteData() {
     const Url = 'http://localhost:3000/delete'
     const Data = {
@@ -114,7 +138,7 @@ function deleteData() {
 }
 document.getElementById("all").addEventListener("click", dbData)
 function dbData() {
-    const Url = 'http://localhost:3000/all'
+    const Url = 'http://localhost:3000/api/all'
     const otherParam ={
         headers: {
             'Content-Type':'application/json'
@@ -128,7 +152,7 @@ function dbData() {
     .then(text => {
         for (let i = 0; i < text.length; i++) {
             var li = document.createElement('li')
-            li.appendChild(document.createTextNode(text[i].info))
+            li.appendChild(document.createTextNode(text[i].name))
             list.appendChild(li)
         }
         console.log(text)
