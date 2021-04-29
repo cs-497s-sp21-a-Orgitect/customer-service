@@ -39,10 +39,10 @@ app.get('/api/all/',(req,res) =>{
 
 });
 //xd
-app.get('/api/notification/',(req,res) =>{
+app.get('/api/notification/:uid',(req,res) =>{
     db.serialize(function () {
         let sql = "SELECT Name name,Email email FROM customers where uid = ?"
-        let id = req.body.id
+        let id = req.params.id
         db.get(sql,[id],(err,row) =>{
             if (err) {
                 res.status(400).json({"error":err.message});
@@ -113,6 +113,8 @@ app.post('/api/', (req,res)=>{
         })
     })
 })
+
+
 app.put('/api/:name', (req,res)=>{
     console.log('put')
     db.serialize(function () {

@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  customerservice:
+    build: .
+    command: node src/customerserver.js
+    ports:
+      - 355:3000
+    tty: true # needed for colorized output in the logs

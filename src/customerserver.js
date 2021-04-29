@@ -35,10 +35,10 @@ app.get('/api/all/', function (req, res) {
     });
 });
 //xd
-app.get('/api/notification/', function (req, res) {
+app.get('/api/notification/:uid', function (req, res) {
     db.serialize(function () {
         var sql = "SELECT Name name,Email email FROM customers where uid = ?";
-        var id = req.body.id;
+        var id = req.params.id;
         db.get(sql, [id], function (err, row) {
             if (err) {
                 res.status(400).json({ "error": err.message });
