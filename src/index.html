@@ -30,29 +30,41 @@
             <input type="button" value="FULL TABLE" id="all" >
         </div>
         <div id="receipt">
-            <p> Added in this session</p>
+            <p> Used/Created in this session</p>
             <ul id="list">
 
             </ul>
         </div>
-        <div id= "database">
-            <p>Database items </p>
+        <div id= "database" style="display: none;">
+            <p>Database People </p>
             <ul id="dblist">
                 
             </ul>
         </div>
         <div id="stage-select" style="display: none;">
-            <select name="requests" id="stages">
-                <!-- option children are formed by running a get? -->
+            <p> Requests :</p>
+            <select name="requests" id="stages" >
+                <option>choose a request</option>
+                <!-- option children are formed by running a get?  onchange="requestChosen(this.value)"-->
             </select>
+            <input type="button" value="Send Request" onclick="requestChosen()"> 
         </div>
 
-        <div id="stage">
-            <p> Your Request is on: </p>
+        <div id="You"> 
+            <p> Your Id:</p>
+            <p id= "cid"></p>
+        </div>
+
+        <div id="currStageList" style="display: none;" >
+            <p>Click button to learn the stages of your requests</p>
+            <input type="button" value="Get CurrentStage" onclick="currentStageInfo()"> 
+            <!-- <p> Your Request is on: </p> -->
+            <p id= "currentStage"></p>
 
             
         </div>
 
+        
 
 
 

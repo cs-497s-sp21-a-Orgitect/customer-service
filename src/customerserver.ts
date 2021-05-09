@@ -12,8 +12,8 @@ db.serialize(function () {
     db.run("CREATE TABLE customers (uid INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Email TEXT UNIQUE, phone TEXT, customer_number TEXT, street_address TEXT, zip TEXT, state TEXT, processID INTEGER)")
     /* 
         uid Int aka customer ID
-        name text
-        email text
+        Name text
+        Email text
         phone text
         customernum text
         street_add text
@@ -29,6 +29,12 @@ app.use(express.urlencoded({
 }));
 
 app.use(express.static(__dirname));
+/* app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  next();
+}); */
 
 
 // list out all the customers and their info
@@ -60,6 +66,7 @@ app.get('/api/:name',(req,res) =>{
                 res.status(400).json({"error":err.message});
                 return;
             }
+            
             res.json(row)
         })
     })

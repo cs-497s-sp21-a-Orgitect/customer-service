@@ -28,6 +28,12 @@ app.use(express_1.default.urlencoded({
     extended: true
 }));
 app.use(express_1.default.static(__dirname));
+/* app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  next();
+}); */
 // list out all the customers and their info
 app.get('/api/all/', function (req, res) {
     db.all("SELECT rowid AS id, name FROM customers", function (err, rows) {
