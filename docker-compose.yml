@@ -5,5 +5,5 @@ services:
     build: .
     command: node src/customerserver.js
     ports:
-      - 355:3000
+      - 3000:80
     tty: true # needed for colorized output in the logs

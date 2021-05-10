@@ -124,7 +124,30 @@ app.post('/api/', (req,res)=>{
 
 app.put('/api/:name', (req,res)=>{
     console.log('put')
+    // email,phone, street_add,zipcode, state
+    var data ={
+        email: req.body.email,
+        phone: req.body.phone,
+        streetadd: req.body.streetadd,
+        zipcode: req.body.zipcode,
+        state: req.body.state
+    }
+    var sql = "UPDATE customers SET Email = (?), phone = (?), street_add = (?), zipcode = (?), state= (?) WHERE Name = (?)"
+    var params = [data.email,data.phone, data.streetadd, data.zipcode, data.state, req.params.name]
     db.serialize(function () {
+        
+        db.run(sql,params, function (err: { message: any; }, result: any) {
+            if (err){
+                res.status(400).json({"error": err.message})
+                return;
+            }
+            res.json({
+                "message": "customer changed!",
+                "data": data,
+            })
+        })
+    })
+    /* db.serialize(function () {
         db.run("UPDATE customers SET processID = (\""+ req.body.processID + "\")"+ " WHERE Name = (\"" + req.params.name + "\")", function (err: { message: any; }, result: any) {
             if (err){
                 res.status(400).json({"error": err.message})
@@ -135,9 +158,10 @@ app.put('/api/:name', (req,res)=>{
                 "data": req.body,
             })
         })
-    })
+    }) */
 })
-//
+
+
 app.delete('/api/', (req,res)=>{
     db.serialize( function(){
         let sql = "DELETE FROM customers WHERE Name = ?"

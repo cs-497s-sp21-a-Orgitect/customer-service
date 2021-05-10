@@ -13,8 +13,8 @@ db.serialize(function () {
     db.run("CREATE TABLE customers (uid INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Email TEXT UNIQUE, phone TEXT, customer_number TEXT, street_address TEXT, zip TEXT, state TEXT, processID INTEGER)");
     /*
         uid Int aka customer ID
-        name text
-        email text
+        Name text
+        Email text
         phone text
         customernum text
         street_add text
@@ -113,20 +113,41 @@ app.post('/api/', function (req, res) {
 });
 app.put('/api/:name', function (req, res) {
     console.log('put');
+    // email,phone, street_add,zipcode, state
+    var data = {
+        email: req.body.email,
+        phone: req.body.phone,
+        streetadd: req.body.streetadd,
+        zipcode: req.body.zipcode,
+        state: req.body.state
+    };
+    var sql = "UPDATE customers SET Email = (?), phone = (?), street_add = (?), zipcode = (?), state= (?) WHERE Name = (?)";
+    var params = [data.email, data.phone, data.streetadd, data.zipcode, data.state, req.params.name];
     db.serialize(function () {
-        db.run("UPDATE customers SET processID = (\"" + req.body.processID + "\")" + " WHERE Name = (\"" + req.params.name + "\")", function (err, result) {
+        db.run(sql, params, function (err, result) {
             if (err) {
                 res.status(400).json({ "error": err.message });
                 return;
             }
             res.json({
-                "message": "customer stage for " + req.params.name + " updated!",
-                "data": req.body,
+                "message": "customer changed!",
+                "data": data,
             });
         });
     });
+    /* db.serialize(function () {
+        db.run("UPDATE customers SET processID = (\""+ req.body.processID + "\")"+ " WHERE Name = (\"" + req.params.name + "\")", function (err: { message: any; }, result: any) {
+            if (err){
+                res.status(400).json({"error": err.message})
+                return;
+            }
+            res.json({
+                "message": "customer stage for " +req.params.name+ " updated!",
+                "data": req.body,
+            })
+        })
+    }) */
 });
-//
 app.delete('/api/', function (req, res) {
     db.serialize(function () {
         var sql = "DELETE FROM customers WHERE Name = ?";
